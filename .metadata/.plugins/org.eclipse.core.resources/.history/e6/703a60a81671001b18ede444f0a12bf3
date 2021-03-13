@@ -1,0 +1,24 @@
+package fr.epsi.entite;
+
+import java.util.Date;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
+public class Note {
+	
+	private byte note;
+
+	public byte getNote() {
+		return note;
+	}
+
+	public void setNote(byte note) {
+		this.note = note;
+	}
+	
+	
+}

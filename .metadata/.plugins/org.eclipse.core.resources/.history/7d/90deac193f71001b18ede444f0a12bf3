@@ -1,0 +1,12 @@
+package fr.epsi.dao;
+
+import java.util.List;
+
+import fr.epsi.entite.Idee;
+import fr.epsi.entite.Utilisateur;
+
+public interface UtilisateurDao {
+    Long create(Utilisateur p);
+    Utilisateur getUtilisateur(Long id);
+	List<Utilisateur> getUtilisateurs();
+}

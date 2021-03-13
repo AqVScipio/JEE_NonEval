@@ -1,0 +1,55 @@
+package fr.epsi.entite;
+
+import java.util.Date;
+import java.util.List;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
+@Entity
+public class Idee {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+	private String titre;
+	private String pitch;
+	private Date datePublication;
+	
+	@OneToMany(mappedBy="idee")
+	private List<Note> notes;
+	
+	public List<Note> getNotes() {
+		return notes;
+	}
+	public void setNotes(List<Note> notes) {
+		this.notes = notes;
+	}
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
+	}
+	public String getTitre() {
+		return titre;
+	}
+	public void setTitre(String titre) {
+		this.titre = titre;
+	}
+	public String getPitch() {
+		return pitch;
+	}
+	public void setPitch(String pitch) {
+		this.pitch = pitch;
+	}
+	public Date getDatePublication() {
+		return datePublication;
+	}
+	public void setDatePublication(Date datePublication) {
+		this.datePublication = datePublication;
+	}
+}

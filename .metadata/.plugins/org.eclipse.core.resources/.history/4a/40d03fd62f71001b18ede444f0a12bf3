@@ -1,0 +1,27 @@
+package fr.epsi.entite;
+
+public class NoteId {
+	private Long utilisateur_id;
+	private Long idee_id;
+
+	public NoteId(Long utilisateur_id, Long idee_id) {
+		this.utilisateur_id = utilisateur_id;
+		this.idee_id = idee_id;
+	}
+
+	public Long getUtilisateur_id() {
+		return utilisateur_id;
+	}
+
+	public void setUtilisateur_id(Long utilisateur_id) {
+		this.utilisateur_id = utilisateur_id;
+	}
+
+	public Long getIdee_id() {
+		return idee_id;
+	}
+
+	public void setIdee_id(Long idee_id) {
+		this.idee_id = idee_id;
+	}
+}

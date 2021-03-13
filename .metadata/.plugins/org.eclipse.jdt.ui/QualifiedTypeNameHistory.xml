@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+    <fullyQualifiedTypeName name="javax.persistence.Entity"/>
+    <fullyQualifiedTypeName name="fr.epsi.dao.IdeeDao"/>
+    <fullyQualifiedTypeName name="fr.epsi.dao.IdeeDaoImpl"/>
+    <fullyQualifiedTypeName name="fr.epsi.service.IdeeService"/>
+    <fullyQualifiedTypeName name="java.util.Date"/>
+    <fullyQualifiedTypeName name="fr.epsi.service.UtilisateurService"/>
+    <fullyQualifiedTypeName name="fr.epsi.controller.UtilisateurServlet"/>
+    <fullyQualifiedTypeName name="javax.servlet.http.HttpSession"/>
+    <fullyQualifiedTypeName name="fr.epsi.entite.Role"/>
+    <fullyQualifiedTypeName name="javax.persistence.IdClass"/>
+    <fullyQualifiedTypeName name="java.io.Serializable"/>
+    <fullyQualifiedTypeName name="javax.persistence.Embeddable"/>
+    <fullyQualifiedTypeName name="javax.persistence.EmbeddedId"/>
+    <fullyQualifiedTypeName name="fr.epsi.controller.IdeeServlet"/>
+    <fullyQualifiedTypeName name="java.util.List"/>
+    <fullyQualifiedTypeName name="java.util.ArrayList"/>
+    <fullyQualifiedTypeName name="javax.persistence.FetchType"/>
+    <fullyQualifiedTypeName name="java.lang.System"/>
+    <fullyQualifiedTypeName name="fr.epsi.entite.Note"/>
+    <fullyQualifiedTypeName name="fr.epsi.entite.Utilisateur"/>
+    <fullyQualifiedTypeName name="fr.epsi.service.NoteService"/>
+    <fullyQualifiedTypeName name="fr.epsi.entite.NoteId"/>
+    <fullyQualifiedTypeName name="fr.epsi.entite.Idee"/>
+</qualifiedTypeNameHistroy>
