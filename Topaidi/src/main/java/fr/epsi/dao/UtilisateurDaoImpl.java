@@ -24,14 +24,9 @@ public class UtilisateurDaoImpl implements UtilisateurDao{
 
 	public void create(Utilisateur p) {	
 			try {
-				Utilisateur user = this.getUtilisateur(p.getUsername());
-				
-				if(user == null) {
-					utx.begin();
-					em.persist(p);
-					utx.commit();
-				}
-				
+				utx.begin();
+				em.persist(p);
+				utx.commit();
 			} catch (NotSupportedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

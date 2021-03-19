@@ -26,17 +26,19 @@ public class UtilisateurServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String username = req.getParameter("username");
 		
-		Utilisateur p = new Utilisateur();
-		p.setUsername(username);
-		
-		service.createUtilisateur(p);
-
-		HttpSession sess = req.getSession();
-		sess.setAttribute("userID", p.getId());
-		
-		System.out.println(p.getId());
-
-		// this.getServletContext().getRequestDispatcher("/WEB-INF/webpages/ideeList.jsp").forward(req, resp);
-		resp.sendRedirect(req.getContextPath() + "/idees?action=list");
+		if(!username.isBlank()) {
+			Utilisateur p = service.getUtilisateur(username);
+			if(p == null) {
+				p = new Utilisateur();
+				p.setUsername(username);
+				service.createUtilisateur(p);
+			}		
+					
+			HttpSession sess = req.getSession();
+			sess.setAttribute("userID", p.getId());
+			
+			// this.getServletContext().getRequestDispatcher("/WEB-INF/webpages/ideeList.jsp").forward(req, resp);
+			resp.sendRedirect(req.getContextPath() + "/idees?action=list");
+		}
 	}
 }

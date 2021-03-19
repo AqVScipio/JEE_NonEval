@@ -10,8 +10,9 @@ import javax.transaction.RollbackException;
 import javax.transaction.SystemException;
 import javax.transaction.UserTransaction;
 
+import fr.epsi.entite.Idee;
 import fr.epsi.entite.Note;
-import fr.epsi.entite.NoteId;
+import fr.epsi.entite.Utilisateur;
 
 public class NoteDaoImpl implements NoteDao {
 
@@ -25,6 +26,7 @@ public class NoteDaoImpl implements NoteDao {
 
 	public void create(Note p) {
 		try {
+			
 			utx.begin();
 			em.persist(p);
 			utx.commit();
@@ -83,12 +85,16 @@ public class NoteDaoImpl implements NoteDao {
 		return null;
 	}
 
-	public Note getNote(NoteId id) {
+	public Note getNote(Utilisateur user, Idee idea) {
 		try {
 			utx.begin();
-			Note note = em.find(Note.class, id);
+			List<Note> notes = em.createQuery("Select n from Note n where n.utilisateur = :user_id and n.idee = :idea_id", Note.class)
+										.setParameter("user_id", user.getId()).setParameter("idea_id", idea.getId())
+										.getResultList();
 			utx.commit();
-			return note;
+			
+			if(!notes.isEmpty())
+				return notes.get(0);
 		} catch (NotSupportedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

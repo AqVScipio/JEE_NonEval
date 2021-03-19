@@ -1,31 +1,37 @@
 package fr.epsi.entite;
 
-import java.util.Date;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Entity
-@IdClass(NoteId.class)
 public class Note {
 	private byte note;
-
-	@Id
-	@ManyToOne
-	@JoinColumn(name="utilisateur_id")
-	private Utilisateur utilisateur;
 	
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long id;
+
 	@ManyToOne
-	@JoinColumn(name="idee_id")
+	@JoinColumn(name="utilisateur")
+	private Utilisateur utilisateur;
+	
+	@ManyToOne
+	@JoinColumn(name="idee")
 	private Idee idee;
 	
 	
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
 	public Utilisateur getUtilisateur() {
 		return utilisateur;
 	}
@@ -50,5 +56,10 @@ public class Note {
 		this.note = note;
 	}
 	
-	
+	public void display() {
+		System.out.println(this.getIdee().getId());
+		System.out.println(this.getIdee().getTitre());
+		System.out.println(this.getUtilisateur().getId());
+		System.out.println(this.getUtilisateur().getUsername());
+	}
 }

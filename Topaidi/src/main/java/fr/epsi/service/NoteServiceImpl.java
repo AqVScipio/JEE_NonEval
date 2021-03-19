@@ -12,8 +12,9 @@ import javax.transaction.UserTransaction;
 
 import fr.epsi.dao.NoteDao;
 import fr.epsi.dao.NoteDaoImpl;
+import fr.epsi.entite.Idee;
 import fr.epsi.entite.Note;
-import fr.epsi.entite.NoteId;
+import fr.epsi.entite.Utilisateur;
 
 @Stateless
 @TransactionManagement(TransactionManagementType.BEAN)
@@ -30,15 +31,15 @@ public class NoteServiceImpl implements NoteService {
 		dao.create(p);
 	}
 
-	public Note getNote(NoteId id) {
-		NoteDao dao = new NoteDaoImpl(em, utx);
-		Note note = dao.getNote(id);
-		return note;
-	}
-
 	public List<Note> getNotes() {
 		NoteDao dao = new NoteDaoImpl(em, utx);
 		return dao.getNotes();
+	}
+
+	public Note getNote(Utilisateur user, Idee idea) {
+		NoteDao dao = new NoteDaoImpl(em, utx);
+		Note note = dao.getNote(user, idea);
+		return note;
 	}
 
 }
