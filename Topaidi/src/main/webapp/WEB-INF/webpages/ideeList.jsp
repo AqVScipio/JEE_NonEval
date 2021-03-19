@@ -4,6 +4,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <title>Fil des Idées</title>
 	<%@include file="commons/header.jsp" %>
 </head>
@@ -13,9 +14,9 @@
 	<a class="btn btn-primary" style="float:right;" href="idees?action=create">Ajouter une Idée</a>
 	
 	<c:forEach items="${idees}" var="idee">
-		<div>
+		<div class="w3-container w3-border" >
 			<div style="float:left;">
-		  		<p><c:out value="${idee.titre}" /></p>
+		  		<p style="text-decoration: underline;"><c:out value="${idee.titre}" /></p>
 		  		<p><c:out value="${idee.initiateur.username}" /></p>
 		  		<p><c:out value="${idee.datePublication}" /></p>
 		  	</div>

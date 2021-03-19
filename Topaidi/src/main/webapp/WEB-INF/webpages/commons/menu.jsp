@@ -8,7 +8,7 @@
 </head>
 <body>
 <nav>
-    <div class="nav-wrapper">
+    <div class="nav-wrapper" style="background-color: grey;">
       <a href="#" class="brand-logo">Se Connecter</a>
       <ul id="nav-mobile" class="right hide-on-med-and-down">
         <li><a href="idees?action=list">Idees</a></li>
