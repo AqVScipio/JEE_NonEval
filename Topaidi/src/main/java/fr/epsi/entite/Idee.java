@@ -1,6 +1,8 @@
 package fr.epsi.entite;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -81,5 +83,34 @@ public class Idee {
 			sum += n.getNote() == 0 ? 1 : 0;
 		}
 		return sum;
+	}
+	
+	public boolean canVote(Long userID) {
+		if(this.getInitiateur().getId() == userID) return false;
+		
+		for(Note n : this.getNotes()) {
+			if (n.getUtilisateur().getId() == userID) return false;
+		}
+		
+		long date1InMs = this.getDatePublication().getTime();
+		long date2InMs = new Date().getTime();
+		long timeDiff = date2InMs - date1InMs;
+		int daysDiff = (int) (timeDiff / (1000 * 60 * 60* 24));
+
+		if(daysDiff > 7) return false;
+		
+		return true;
+	}
+	
+	public double getPercentTops() {
+		if(this.getNotes().size() == 0) return 0;
+		
+		int nbTops = 0;
+		
+		for(Note n : this.getNotes()) {
+			if (n.getNote() == 1) nbTops ++;
+		}
+		
+		return (nbTops / this.getNotes().size()) * 100;
 	}
 }

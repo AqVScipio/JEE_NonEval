@@ -23,6 +23,15 @@ public class Utilisateur {
 	@OneToMany(mappedBy="utilisateur")
 	private List<Note> notes = new ArrayList<Note>();
 	
+	@OneToMany(mappedBy="initiateur")
+	private List<Idee> idees = new ArrayList<Idee>();
+	
+	public List<Idee> getIdees() {
+		return idees;
+	}
+	public void setIdees(List<Idee> idees) {
+		this.idees = idees;
+	}
 	@ManyToOne
 	@JoinColumn(name="role_id")
 	private Role role;
