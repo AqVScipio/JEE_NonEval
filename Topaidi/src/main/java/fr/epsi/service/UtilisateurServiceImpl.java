@@ -38,5 +38,4 @@ public class UtilisateurServiceImpl implements UtilisateurService {
 		UtilisateurDao dao=new UtilisateurDaoImpl(em, utx);
 		return dao.getUtilisateurs();
 	}
-
 }

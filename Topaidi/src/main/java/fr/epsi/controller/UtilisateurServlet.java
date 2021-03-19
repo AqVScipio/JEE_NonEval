@@ -24,11 +24,13 @@ public class UtilisateurServlet extends HttpServlet {
 	private UtilisateurService service;
 
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		String username = req.getParameter("username");
+		
 		Utilisateur p = new Utilisateur();
-		p.setUsername(req.getParameter("username"));
+		p.setUsername(username);
 		
 		service.createUtilisateur(p);
-		
+
 		HttpSession sess = req.getSession();
 		sess.setAttribute("userID", p.getId());
 		

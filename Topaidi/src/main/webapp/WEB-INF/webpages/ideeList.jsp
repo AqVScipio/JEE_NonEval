@@ -10,42 +10,46 @@
 </head>
 <body>
 	<%@include file="commons/menu.jsp" %>
+	<div  class="container">
+		<a class="btn btn-primary" style="float:right;" href="idees?action=create">Ajouter une Idée</a>
+		
+		<div style="clear:both; margin-top:10px;">
+			<c:forEach items="${idees}" var="idee">
+				<div class="w3-container w3-border" >
+					<div style="float:left;">
+				  		<p style="text-decoration: underline;"><c:out value="${idee.titre}" /></p>
+				  		<p><c:out value="${idee.initiateur.username}" /></p>
+				  		<p><c:out value="${idee.datePublication}" /></p>
+				  	</div>
+				  	
+				  	<div style="float:right;">
+				  				
+				  	</div>
+				  	
+				  	<div style="clear:both;">
+				  		<p><c:out value="${idee.pitch}" /></p>
+				  	</div>
+				  	
+				  	<div style="float:left;">
+				  		<p>
+				  			Tops : <c:out value="${idee.getNbTops()}" />
+				  			<a class="btn" href="notes?action=top&idee=${idee.id}">+</a>
+				  		</p>
+				  	</div>
+				  	
+				  	<div style="float:right;">
+				  		<p>
+					  		Flops : <c:out value="${idee.getNbFlops()}" />
+					  		<a class="btn" href="notes?action=flop&idee=${idee.id}">-</a>
+				  		</p>		
+				  	</div>
+				  </div>
+				  
+				  <br/>
+				  <br/>
+			</c:forEach>
+		</div>
+	</div>
 	
-	<a class="btn btn-primary" style="float:right;" href="idees?action=create">Ajouter une Idée</a>
-	
-	<c:forEach items="${idees}" var="idee">
-		<div class="w3-container w3-border" >
-			<div style="float:left;">
-		  		<p style="text-decoration: underline;"><c:out value="${idee.titre}" /></p>
-		  		<p><c:out value="${idee.initiateur.username}" /></p>
-		  		<p><c:out value="${idee.datePublication}" /></p>
-		  	</div>
-		  	
-		  	<div style="float:right;">
-		  				
-		  	</div>
-		  	
-		  	<div style="clear:both;">
-		  		<p><c:out value="${idee.pitch}" /></p>
-		  	</div>
-		  	
-		  	<div style="float:left;">
-		  		<p>
-		  			Tops : <c:out value="${idee.getNbTops()}" />
-		  			<a class="btn" href="notes?action=top&idee=${idee.id}">+</a>
-		  		</p>
-		  	</div>
-		  	
-		  	<div style="float:right;">
-		  		<p>
-			  		Flops : <c:out value="${idee.getNbFlops()}" />
-			  		<a class="btn" href="notes?action=flop&idee=${idee.id}">-</a>
-		  		</p>		
-		  	</div>
-		  </div>
-		  
-		  <br/>
-		  <br/>
-	</c:forEach>
 </body>
 </html>

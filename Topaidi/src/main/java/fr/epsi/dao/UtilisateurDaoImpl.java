@@ -3,6 +3,7 @@ package fr.epsi.dao;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.transaction.HeuristicMixedException;
 import javax.transaction.HeuristicRollbackException;
 import javax.transaction.NotSupportedException;
@@ -23,10 +24,18 @@ public class UtilisateurDaoImpl implements UtilisateurDao{
 
 	public void create(Utilisateur p) {	
 			try {
-				utx.begin();
-				em.persist(p);
-				utx.commit();
+				Utilisateur user = this.getUtilisateur(p.getUsername());
+				
+				if(user == null) {
+					utx.begin();
+					em.persist(p);
+					utx.commit();
+				}
+				
 			} catch (NotSupportedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (NoResultException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (SystemException e) {
@@ -111,6 +120,40 @@ public class UtilisateurDaoImpl implements UtilisateurDao{
 		}
 		return null;
 	}
-	
 
+	public Utilisateur getUtilisateur(String name) {
+		try {
+			utx.begin();
+			List<Utilisateur> users = em.createQuery("Select u from Utilisateur u where u.username = :name", Utilisateur.class)
+					.setParameter("name", name).getResultList();			
+			utx.commit();
+			if(!users.isEmpty())
+				return users.get(0);
+		} catch (NotSupportedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NoResultException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SystemException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SecurityException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalStateException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (RollbackException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (HeuristicMixedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (HeuristicRollbackException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
 }
