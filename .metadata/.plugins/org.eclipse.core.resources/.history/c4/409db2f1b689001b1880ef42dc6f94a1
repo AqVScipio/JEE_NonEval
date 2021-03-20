@@ -1,0 +1,51 @@
+package fr.epsi.entite;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.SortedSet;
+import java.util.TreeSet;
+
+public class BrainsComparator {
+
+	public static List<Long> getBrains(List<Idee> idees) {
+		Map<Long, Long> map = new HashMap<Long, Long>();
+
+		if (!idees.isEmpty())
+			map.put(idees.get(0).getInitiateur().getId(), 1l);
+
+		Long id = 0l;
+
+		for (int i = 1; i < idees.size(); i++) {
+			id = idees.get(i).getInitiateur().getId();
+
+			if (map.containsKey(id))
+				map.replace(id, map.get(id) + 1);
+			else
+				map.put(id, 1l);
+		}
+
+		SortedSet<Long> sorted = new TreeSet(map.values());
+		List<Long> tmp = new ArrayList<Long>();
+
+		for (Long l : sorted) {
+			tmp.add(l);
+		}
+
+		List<Long> rv = new ArrayList<Long>();
+		
+		if (!tmp.isEmpty()) {
+			if (tmp.size() >= 3) {
+				for (int i = 0; i < 3; i++) {
+					rv.add(tmp.get(i));
+				}
+			}
+		}
+		
+		return rv;
+	}
+}

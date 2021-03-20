@@ -1,0 +1,83 @@
+package fr.epsi.controller;
+
+import java.io.IOException;
+import java.util.Collections;
+import java.util.Date;
+import java.util.List;
+
+import javax.ejb.EJB;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import fr.epsi.entite.Idee;
+import fr.epsi.entite.TopComparator;
+import fr.epsi.entite.Utilisateur;
+import fr.epsi.service.IdeeService;
+import fr.epsi.service.UtilisateurService;
+
+@WebServlet("/idees")
+public class IdeeServlet extends HttpServlet {
+
+	@EJB
+	private IdeeService iService;
+	
+	@EJB
+	private UtilisateurService uService;
+
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		System.out.println("Alerte !");
+		HttpSession sess = req.getSession();
+		if (sess.getAttribute("userID") != null) {
+			req.setAttribute("username", uService.getUtilisateur((Long) sess.getAttribute("userID")).getUsername());			
+			req.setAttribute("userID", (Long) sess.getAttribute("userID"));			
+			
+			if (req.getParameter("action").equals("create"))
+				this.getServletContext().getRequestDispatcher("/WEB-INF/webpages/ideeCreate.jsp").forward(req, resp);
+			
+			else if (req.getParameter("action").equals("buzz")) {
+				List<Idee> idees = iService.getIdees();
+				if(!idees.isEmpty()) {
+					
+				}
+				this.getServletContext().getRequestDispatcher("/WEB-INF/webpages/ideeBuzz.jsp").forward(req, resp);
+				
+			}else if (req.getParameter("action").equals("tops")) {
+				List<Idee> idees = iService.getIdees();
+				if(!idees.isEmpty()) {
+					Collections.sort(idees, new TopComparator());
+					req.setAttribute("idees", idees);
+				}
+				this.getServletContext().getRequestDispatcher("/WEB-INF/webpages/ideeBuzz.jsp").forward(req, resp);
+			}
+				
+			else {
+				List<Idee> idees = iService.getIdees();
+				req.setAttribute("idees", idees);
+				this.getServletContext().getRequestDispatcher("/WEB-INF/webpages/ideeList.jsp").forward(req, resp);
+			}
+		} else {
+			this.getServletContext().getRequestDispatcher("/WEB-INF/webpages/home.jsp").forward(req, resp);
+		}
+
+	}
+
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		HttpSession sess = req.getSession();
+		Idee p = new Idee();
+		Utilisateur u = new Utilisateur();
+
+		u.setId((Long)sess.getAttribute("userID"));
+		p.setTitre(req.getParameter("titre"));
+		p.setPitch(req.getParameter("pitch"));
+		p.setDatePublication(new Date());
+		p.setInitiateur(u);
+		iService.createIdee(p);
+		// this.getServletContext().getRequestDispatcher("/WEB-INF/webpages/ideeList.jsp").forward(req,
+		// resp);
+		resp.sendRedirect(req.getContextPath() + "/idees?action=list");
+	}
+}

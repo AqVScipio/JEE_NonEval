@@ -6,10 +6,10 @@
 		<item key="wholeword" value="false"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
-		<item key="selection" value="Note"/>
+		<item key="selection" value=""/>
 		<list key="findhistory">
-			<item value="Utilisateur"/>
 			<item value="idee_id"/>
+			<item value="Utilisateur"/>
 			<item value="utilisateur_id"/>
 			<item value="Idee"/>
 		</list>

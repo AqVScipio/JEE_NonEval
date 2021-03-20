@@ -1,0 +1,10 @@
+package fr.epsi.entite;
+
+import java.util.Comparator;
+
+public class TopComparator implements Comparator<Idee> {
+	
+    public int compare(Idee o1, Idee o2) {
+    	return o1.getPercentTops() < b.age ? -1 : a.age == b.age ? 0 : 1;
+	}
+}

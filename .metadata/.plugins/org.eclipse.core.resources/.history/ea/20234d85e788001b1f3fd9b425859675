@@ -1,0 +1,44 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<title>Classement Top</title>
+<%@include file="commons/header.jsp"%>
+</head>
+<body>
+	<%@include file="commons/menu.jsp"%>
+	<div class="container">
+		<a class="btn btn-primary" style="float: right;"
+			href="idees?action=create">Ajouter une Idée</a>
+
+		<div style="clear: both; margin-top: 10px;">
+			<table>
+				<tr>
+					<th>Idée</th>
+					<th>Auteur</th>
+					<th>Pitch</th>
+					<th>Date publication</th>
+					<th>Tops</th>
+					<th>% de Tops</th>
+				</tr>
+				
+				<c:forEach items="${idees}" var="idee">
+					<tr>
+						<td><c:out value="${idee.titre}" /></td>
+						<td><c:out value="${idee.initiateur.username}" /></td>
+						<td><c:out value="${idee.pitch}" /></td>
+						<td><c:out value="${idee.datePublication}" /></td>
+						<td><c:out value="${idee.getNbTops()}" /></td>
+						<td><c:out value="${idee.getPercentTops()}" /></td>
+					</tr>
+				</c:forEach>
+
+
+			</table>
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,52 @@
+package fr.epsi.entite;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
+public class Note {
+	private byte note;
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+
+	private Long utilisateur_id;
+	private Long idee_id;
+	
+	
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+
+	public byte getNote() {
+		return note;
+	}
+
+	public void setNote(byte note) {
+		this.note = note;
+	}
+
+	public Long getUtilisateur_id() {
+		return utilisateur_id;
+	}
+
+	public void setUtilisateur_id(Long utilisateur_id) {
+		this.utilisateur_id = utilisateur_id;
+	}
+
+	public Long getIdee_id() {
+		return idee_id;
+	}
+
+	public void setIdee_id(Long idee_id) {
+		this.idee_id = idee_id;
+	}
+}

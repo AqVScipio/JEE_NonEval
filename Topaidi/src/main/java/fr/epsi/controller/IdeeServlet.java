@@ -15,10 +15,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import fr.epsi.entite.BrainsComparator;
-import fr.epsi.entite.BuzzComparator;
+import fr.epsi.comparators.BrainsComparator;
+import fr.epsi.comparators.BuzzComparator;
+import fr.epsi.comparators.TopComparator;
 import fr.epsi.entite.Idee;
-import fr.epsi.entite.TopComparator;
 import fr.epsi.entite.Utilisateur;
 import fr.epsi.service.IdeeService;
 import fr.epsi.service.UtilisateurService;
@@ -28,7 +28,7 @@ public class IdeeServlet extends HttpServlet {
 
 	@EJB
 	private IdeeService iService;
-	
+
 	@EJB
 	private UtilisateurService uService;
 
@@ -36,66 +36,69 @@ public class IdeeServlet extends HttpServlet {
 		System.out.println("Alerte !");
 		HttpSession sess = req.getSession();
 		if (sess.getAttribute("userID") != null) {
-			req.setAttribute("username", uService.getUtilisateur((Long) sess.getAttribute("userID")).getUsername());			
-			req.setAttribute("userID", (Long) sess.getAttribute("userID"));			
-			
+			req.setAttribute("username", uService.getUtilisateur((Long) sess.getAttribute("userID")).getUsername());
+			req.setAttribute("userID", (Long) sess.getAttribute("userID"));
+
 			// Returns Create Idea Form
 			if (req.getParameter("action").equals("create"))
 				this.getServletContext().getRequestDispatcher("/WEB-INF/webpages/ideeCreate.jsp").forward(req, resp);
-			
+
 			// Returns Buzz page
 			else if (req.getParameter("action").equals("buzz")) {
 				List<Idee> idees = iService.getIdees();
 				List<Idee> buzz = new ArrayList<Idee>();
-				if(!idees.isEmpty()) {
+				if (!idees.isEmpty()) {
 					Collections.sort(idees, new BuzzComparator());
-					if(idees.size() > 3) {
-						for(int i = 0; i < 3; i++) {
+					if (idees.size() > 3) {
+						for (int i = 0; i < 3; i++) {
 							buzz.add(idees.get(i));
 						}
-					}else
+					} else
 						buzz = idees;
-					
+
 					req.setAttribute("idees", buzz);
 				}
-				this.getServletContext().getRequestDispatcher("/WEB-INF/webpages/classementNotes.jsp").forward(req, resp);
-			
+				this.getServletContext().getRequestDispatcher("/WEB-INF/webpages/classementNotes.jsp").forward(req,
+						resp);
+			}
+
 			// Returns Tops Page
-			}else if (req.getParameter("action").equals("tops")) {
+			else if (req.getParameter("action").equals("tops")) {
 				List<Idee> idees = iService.getIdees();
 				List<Idee> tops = new ArrayList<Idee>();
-				if(!idees.isEmpty()) {
+				if (!idees.isEmpty()) {
 					Collections.sort(idees, new TopComparator());
-					if(idees.size() > 3) {
-						for(int i = 0; i < 3; i++) {
+					if (idees.size() > 3) {
+						for (int i = 0; i < 3; i++) {
 							tops.add(idees.get(i));
 						}
-					}else
+					} else
 						tops = idees;
-					
+
 					req.setAttribute("idees", tops);
 				}
 				this.getServletContext().getRequestDispatcher("/WEB-INF/webpages/classementTops.jsp").forward(req, resp);
-			
+			}
+
 			// Returns Brains page
-			}else if (req.getParameter("action").equals("brains")) {
-				List<Idee> idees = iService.getIdees();
+			else if (req.getParameter("action").equals("brains")) {
+				List<Utilisateur> users = uService.getUtilisateurs();
 				List<Utilisateur> brains = new ArrayList<Utilisateur>();
-				List<Long> uIDs = new ArrayList<Long>();
-				
-				if(!idees.isEmpty()) {
-					uIDs = BrainsComparator.getBrains(idees);
-					if(!uIDs.isEmpty()) {
-						for(Long l : uIDs) {
-							brains.add(uService.getUtilisateur(l));
+				if (!users.isEmpty()) {
+					Collections.sort(users, new BrainsComparator());
+					if (users.size() > 3) {
+						for (int i = 0; i < 3; i++) {
+							brains.add(users.get(i));
 						}
-					}
-					
+					} else
+						brains = users;
+
 					req.setAttribute("brains", brains);
 				}
-				this.getServletContext().getRequestDispatcher("/WEB-INF/webpages/classementBrains.jsp").forward(req, resp);
-			}				
-			
+				this.getServletContext().getRequestDispatcher("/WEB-INF/webpages/classementBrains.jsp").forward(req,
+						resp);
+			}
+
 			// Returns list of Ideas
 			else {
 				List<Idee> idees = iService.getIdees();
@@ -113,7 +116,7 @@ public class IdeeServlet extends HttpServlet {
 		Idee p = new Idee();
 		Utilisateur u = new Utilisateur();
 
-		u.setId((Long)sess.getAttribute("userID"));
+		u.setId((Long) sess.getAttribute("userID"));
 		p.setTitre(req.getParameter("titre"));
 		p.setPitch(req.getParameter("pitch"));
 		p.setDatePublication(new Date());
